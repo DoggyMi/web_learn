@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-size: 10px;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #333333;
+    color: white;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.main{
+
+}
+
+.header-content{
+    max-width: 960px;
+    margin: 0 auto;
+    height: 40px;
+    padding: 0 20px;
+}
+
+.header-content ul{
+    float: right;
+}
+
+.header-content a{
+    font-size: 1rem;
+    color: white;
+}
+
+.logo{
+    float: left;
+    line-height: 40px;
+    font-size: 2rem;
+}
+
+.banner{
+    height: 240px;
+    background-color: #66bb33;
+    position: relative;
+}
+
+.banner ul{
+    position: absolute;
+    bottom: 12px;
+    right: 48px;
+}
+
+.banner ul li:hover{
+    padding: 8px 2px 4px 2px;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    background: #e0f1d6;
+    margin-right: 4px;
+}
+
+.banner ul li{
+    padding: 4px 2px;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    background: #b2dd99;
+    margin-right: 4px;
+}
+
+
+.nav{
+    margin-top: 12px;
+}
+
+.nav .nav-padding-left{
+    float: left;
+    margin-left: -100%;
+    width: 48px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e8e8e8
+}
+
+.nav .nav-padding-right{
+    float: left;
+    padding: 8px 0;
+    width: 100%;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.nav ul{
+    margin-left: -100%;
+    padding-left: 48px;
+    float: left;
+}
+
+.nav ul li{
+    box-sizing: border-box;
+    padding: 8px 12px;
+    margin: 0;
+    background-color: #eeeeee;
+    border: 1px solid #e8e8e8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.nav ul li:hover{
+    box-sizing: border-box;
+    padding: 8px 12px;
+    margin: 0;
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: white;
+}
+
+.content-container{
+    max-width: 960px;
+    margin-left: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.content{
+    border: 1px black solid;
+    flex: 120px;
+    padding: 36px;
+    margin-right: 24px;
+    margin-top: 24px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    display: inline-block;
+}
+
+footer{
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+    position: fixed;
+    background-color: #666666;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+}
