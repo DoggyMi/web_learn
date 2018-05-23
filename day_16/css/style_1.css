@@ -1,0 +1,34 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    padding: 20px;
+}
+
+h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+[label]{
+    font-weight: bold;
+}
+
+[label*="block"]{
+    display: block;
+}
+
+ul{
+    list-style-type: none;
+}
+
+ul li{
+    margin-top: 12px;
+}
+
+
+.base-info li,.contact li{
+    display: inline;
+    margin-right: 12px;
+}

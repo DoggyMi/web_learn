@@ -1,0 +1,63 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    padding: 20px;
+}
+h1{
+    text-align: center;
+}
+.all{
+    width: 800px;
+    margin: 0 auto;
+    background-color: #65a4fa;
+}
+
+.all::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+header{
+    padding: 20px;
+    float: left;
+    color: #ffffff;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+main{
+    padding-left: 20px;
+    float:right;
+    width: 80%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+[label]{
+    font-weight: bold;
+}
+
+ul{
+    list-style-type: none;
+}
+
+ul li{
+    margin-top: 12px;
+}
+
+.base-info li,.contact li{
+   display: inline;
+    margin-right: 12px;
+}
+
+[label*="block"]{
+    display: block;
+}

@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    padding: 20px;
+    background: #848484;
+    color: white;
+}
+
+h2{
+    height: 150px;
+    width: 150px;
+    line-height: 150px;
+    font-size: 16px;
+    background-color: #d6d6d6;
+    float: left;
+    text-align: center;
+    margin-right: 12px;
+}
+
+section{
+    margin-top: 2px;
+}
+section::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+[label]{
+    font-weight: bold;
+}
+
+ul{
+    list-style-type: none;
+}
+
+ul li{
+    padding-top: 12px;
+}
+
+.base-info li,.contact li{
+    display: inline;
+    margin-right: 12px;
+}

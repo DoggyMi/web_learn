@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style_2.css">
+</head>
+<body>
+<div class="all">
+<header>
+    <h1>简历</h1>
+</header>
+<main>
+    <section  class="base-info">
+        <h2>基本信息</h2>
+        <ul>
+            <li>
+                <span label>姓名</span> 张三
+            </li>
+            <li>
+                <span label>性别</span> 男
+            </li>
+            <li>
+                <span label>应聘职位</span> web前端工程师
+            </li>
+        </ul>
+    </section>
+    <section class="contact">
+        <h2>联系方式</h2>
+        <ul>
+            <li>
+                <span label>手机</span> 12312341234
+            </li>
+            <li>
+                <span label>Email</span> <a href="#">joinefe@baidu.com</a>
+            </li>
+            <li>
+                <span label>个人主页</span> <a href="#">Github</a>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h2>能力描述</h2>
+        <ul>
+            <li><span label="block">技术能力</span>熟练掌握HTML,CSS,Javascript</li>
+            <li><span label="block">综合能力</span>良好的沟通，主动积极，努力勤奋</li>
+        </ul>
+    </section>
+    <section>
+        <h2>教育经历</h2>
+        <ul>
+            <li><span label="block">本科</span>百度前端技术学院小微学院</li>
+            <li><span label="block">研究生</span>百度前端技术学院大斌学院</li>
+        </ul>
+    </section>
+    <section>
+        <h2>项目经理</h2>
+        <ul>
+            <li><span label="block">小度小度</span>作为前端工程师角色参与了ABC组件的开发</li>
+            <li><span label="block">SAN Doc</span>作为文档工程师参与了SAN Doc编写</li>
+        </ul>
+    </section>
+    <section id="javascript-test">
+        <button id="javascript-test-btn">查看我的自我评价</button>
+        <p id="my-introduce">
+            我是哇咔咔
+        </p>
+    </section>
+</main>
+</div>
+<script>
+    var testBtn = document.getElementById("javascript-test-btn");
+    var testContent = document.getElementById("my-introduce");
+    testContent.style.display = "none";
+    testBtn.onclick = function (ev) {
+        console.log(testContent.style.display);
+        if (testContent.style.display === "none") {
+            testContent.style.display = "block";
+        }else {
+            testContent.style.display = "none"
+        }
+    }
+</script>
+</body>
+</html>
