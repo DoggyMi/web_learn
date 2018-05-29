@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+</head>
+<body>
+基于上一个任务中，关于加减乘除的任务，加上对于特殊情况的判断，比如判断两个输入框是否都是正常输入了数字类型的内容，比如除法的时候除数是否为0，当判断到输入有异常的时候，把错误信息提示到Console中。
+<input id="first-number" type="number" value="0" placeholder="第一个数字">
+<input id="second-number" type="number" value="0" placeholder="第二个数字">
+<button id="add-btn">加</button>
+<button id="minus-btn">减</button>
+<button id="times-btn">乘</button>
+<button id="divide-btn">除</button>
+<p id="result">运算结果</p>
+<script>
+    var fNum = document.getElementById("first-number");
+    var sNum = document.getElementById("second-number");
+    var result = document.getElementById("result");
+    document.getElementById("add-btn").onclick = function (ev) {
+        var a = parseFloat(fNum.value);
+        var b = parseFloat(sNum.value);
+        console.log(a);
+        console.log(b);
+        console.log(isNaN(a));
+        console.log(isNaN(b));
+        console.log(typeof a);
+        console.log(typeof b);
+        if (!isNaN(a)&&!isNaN(b)) {
+            result.innerText = (a + b).toString();
+        } else {
+            console.log("类型异常");
+        }
+    };
+    document.getElementById("minus-btn").onclick = function (ev) {
+        var a = fNum.value;
+        var b = sNum.value;
+        if (!isNaN(a)&&!isNaN(b)) {
+            result.innerText = (a - b).toString();
+        } else {
+            console.log("类型异常");
+        }
+    };
+    document.getElementById("times-btn").onclick = function (ev) {
+        var a = fNum.value;
+        var b = sNum.value;
+        if (!isNaN(a)&&!isNaN(b)) {
+            result.innerText = (a * b).toString();
+        } else {
+            console.log("类型异常");
+        }
+    };
+    document.getElementById("divide-btn").onclick = function (ev) {
+        var a = fNum.value;
+        var b = sNum.value;
+        if (!isNaN(a)&&!isNaN(b)) {
+            if (b != 0) {
+                result.innerText = (a / b).toString();
+            } else {
+                console.log("除数不能为0");
+            }
+        } else {
+            console.log("类型异常");
+        }
+    };
+</script>
+</body>
+</html>

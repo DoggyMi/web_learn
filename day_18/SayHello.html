@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    var myDate = new Date();
+    var hour = myDate.getHours();
+    if (hour >= 6 && hour < 12) {
+        alert("早上好");
+    } else if (hour >= 12 && hour < 18) {
+        alert("下午好");
+    } else if (hour >= 18) {
+        alert("晚上好");
+    } else {
+        alert("现在是凌晨");
+    }
+    // console.log("myDate.getYear()"+myDate.getYear());        //获取当前年份(2位)
+    // console.log(" myDate.getFullYear()"+myDate.getFullYear());    //获取完整的年份(4位,1970-????)
+    // console.log("myDate.getMonth()"+myDate.getMonth());       //获取当前月份(0-11,0代表1月)
+    // console.log("myDate.getDate()"+myDate.getDate());        //获取当前日(1-31)
+    // console.log(" myDate.getDay()"+myDate.getDay());         //获取当前星期X(0-6,0代表星期天)
+    // console.log(" myDate.getTime()"+myDate.getTime());        //获取当前时间(从1970.1.1开始的毫秒数)
+    // console.log("myDate.getHours()"+myDate.getHours());       //获取当前小时数(0-23)
+    // console.log("myDate.getMinutes()"+myDate.getMinutes());     //获取当前分钟数(0-59)
+    // console.log("myDate.getSeconds()"+myDate.getSeconds());     //获取当前秒数(0-59)
+    // console.log(" myDate.getMilliseconds()"+myDate.getMilliseconds());    //获取当前毫秒数(0-999)
+    // console.log(" myDate.toLocaleDateString()"+myDate.toLocaleDateString());     //获取当前日期
+    // console.log("myDate.toLocaleTimeString()"+myDate.toLocaleTimeString());     //获取当前时间
+    // console.log("myDate.toLocaleString()"+myDate.toLocaleString());        //获取日期与时间
+</script>
+<body>
+
+</body>
+</html>
