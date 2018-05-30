@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+    <style>
+        select {
+            display: none;
+        }
+
+        .onFocus {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<label>
+    <input id="school" name="status" type="radio">
+    School
+</label>
+<label>
+    <input id="company" name="status" type="radio">
+    Company
+</label>
+
+<select id="school-select" title="">
+    <option>北京邮电大学</option>
+    <option>黑龙江大学</option>
+    <option>华中科技大学</option>
+</select>
+
+<select id="company-select" title="">
+    <option>百度</option>
+    <option>爱奇艺</option>
+</select>
+
+<script>
+    var schoolEle = document.getElementById("school");
+    var comEle = document.getElementById("company");
+    var schoolSelect = document.getElementById("school-select");
+    var comSelect = document.getElementById("company-select");
+    schoolEle.addEventListener("focus",function () {
+        schoolSelect.setAttribute("class","onFocus");
+        comSelect.setAttribute("class","");
+    });
+    comEle.addEventListener("focus",function () {
+        comSelect.setAttribute("class","onFocus");
+        schoolSelect.setAttribute("class","");
+    });
+
+    // schoolEle.onfocus = function () {
+    //     schoolSelect.setAttribute("class","onFocus");
+    // }
+</script>
+</body>
+</html>

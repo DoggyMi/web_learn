@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="name" type="text" title="">
+<button id="submit-btn">Submit</button>
+<script>
+    var btn = document.querySelector("button");
+    var input = document.querySelector("#name");
+    btn.onclick = logInput;
+
+    document.onkeydown = function (ev) {
+        if(ev.keyCode === 13) {
+            logInput();
+        }
+        if(ev.keyCode === 27) {
+            clearInput();
+        }
+    };
+
+    function logInput() {
+        console.log(input.value);
+    }
+
+    function clearInput() {
+        input.value = "";
+    }
+</script>
+</body>
+</html>
