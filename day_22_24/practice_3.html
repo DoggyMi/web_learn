@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+实现一个字符串头尾去除空格的函数
+注意需要去除的空格，包括全角、半角空格
+暂时不需要学习和使用正则表达式的方式
+*/
+    function diyTrim(str) {
+        var result = "";
+        if ((str !== " ") && (str !== "　")) {
+            var indexS = 0;
+            var indexE = 1;
+            for (var i = 0; i < str.length; i++) {
+                if ((str.charAt(i) !== " ") && (str.charAt(i) !== "　")) {
+                    if (indexS === 0) {
+                        indexS = i;
+                    }
+                    indexE = i + 1;
+                }
+            }
+            result = str.slice(indexS, indexE);
+        }
+        return result
+    }
+
+    // 测试用例
+    console.log("result:" + diyTrim(' a f b    ') + "(end)"); // ->a f b
+    console.log("result:" + diyTrim('    ffdaf    ') + "(end)"); // ->ffdaf
+    console.log("result:" + diyTrim('1    ') + "(end)"); // ->1
+    console.log("result:" + diyTrim('　　f') + "(end)"); // ->f
+    console.log("result:" + diyTrim('  　  a f b 　　 ') + "(end)"); // ->a f b
+    console.log("result:" + diyTrim(' ') + "(end)"); // ->
+    console.log("result:" + diyTrim('　') + "(end)"); // ->
+    console.log("result:" + diyTrim('') + "(end)"); // ->
+
+    /*
+    去掉字符串str中，连续重复的地方
+    */
+    function removeRepetition(str) {
+        var result = "";
+        for (var i = 0; i < str.length; i++) {
+            if (result.charAt(result.length - 1) !== str.charAt(i)) {
+                result = result + str.charAt(i);
+            }
+        }
+        return result;
+    }
+
+    // 测试用例
+    console.log("result:" + removeRepetition("aaa") + "(end)"); // ->a
+    console.log("result:" + removeRepetition("abbba") + "(end)"); // ->aba
+    console.log("result:" + removeRepetition("aabbaabb") + "(end)"); // ->abab
+    console.log("result:" + removeRepetition("") + "(end)"); // ->
+    console.log("result:" + removeRepetition("abc") + "(end)"); // ->abc
+</script>
+</html>

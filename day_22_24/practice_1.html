@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"></label><input id="num-a" type="text" title="">
+    <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" type="text" title="">
+</div>
+<div>
+    <button onclick="funA()">判断当前选中的输入框输入内容是否为数字</button>
+    <button onclick="funB()">把 A 四舍五入为 B 个小数位数的数字</button>
+    <button onclick="funC()">当前选中数字的绝对值</button>
+    <button onclick="funD()">对当前选中的数字进行上舍入</button>
+    <button onclick="funE()">对当前选中的数字进行下舍入</button>
+    <button onclick="funF()">把当前选中的数字四舍五入为最接近的整数</button>
+    <button onclick="funG()">返回 A 和 B 中的最高值</button>
+    <button onclick="funH()">返回 A 和 B 中的最低值</button>
+</div>
+<p id="result"></p>
+</body>
+<script>
+    var eleNumA = document.querySelector("#num-a");
+    var eleNumB = document.querySelector("#num-b");
+    var eleRadioA = document.querySelector("#radio-a");
+    var eleRadioB = document.querySelector("#radio-b");
+    var eleResult = document.querySelector("#result");
+    function funA() {
+        print("A is Number " + isNumber(eleNumA.value)+" B is Number " + isNumber(eleNumB.value));
+    }
+
+    function funB() {
+        if (validParam()) {
+            print(getNumA().toFixed(getNumB()));
+        }
+    }
+
+    function funC() {
+        if (validParam()) {
+            if (eleRadioA.checked) {
+                print(Math.abs(getNumA()));
+            }
+            if (eleRadioB.checked) {
+                print(Math.abs(getNumB()));
+            }
+        }
+    }
+
+    function funD() {
+        if (validParam()) {
+            if (eleRadioA.checked) {
+                print(Math.ceil(getNumA()));
+            }
+            if (eleRadioB.checked) {
+                print(Math.ceil(getNumB()));
+            }
+        }
+    }
+
+    function funE() {
+        if (validParam()) {
+            if (eleRadioA.checked) {
+                print(Math.floor(getNumA()));
+            }
+            if (eleRadioB.checked) {
+                print(Math.floor(getNumB()));
+            }
+        }
+    }
+
+    function funF() {
+        if (validParam()) {
+            if (eleRadioA.checked) {
+                print(Math.round(getNumA()));
+            }
+            if (eleRadioB.checked) {
+                print(Math.round(getNumB()));
+            }
+        }
+    }
+
+    function funG() {
+        if (validParam()) {
+            print(Math.max(getNumA(),getNumB()))
+        }
+    }
+
+    function funH() {
+        if (validParam()) {
+            print(Math.min(getNumA(),getNumB()))
+        }
+    }
+
+    function getNumA() {
+        return Number(eleNumA.value);
+    }
+
+    function getNumB() {
+        return Number(eleNumB.value);
+    }
+
+    function validParam() {
+        if(isNumber(eleNumA.value)&&isNumber(eleNumB.value)){
+            return true;
+        }else {
+            print("参数必须为数字");
+            return false;
+        }
+    }
+
+    function print(result) {
+        eleResult.innerText = result;
+    }
+
+    function isNumber(value) {
+        console.log(value);
+        return !isNaN(Number(value))
+    }
+</script>
+</html>
