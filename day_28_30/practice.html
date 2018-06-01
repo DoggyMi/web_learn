@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #email-sug-wrapper {
+            border: 1px solid #c2c2c2;
+            border-top: 0 solid #c2c2c2;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            color: #c2c2c2;
+            display: none;
+            width: 200px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        #email-sug-wrapper li{
+            padding: 4px;
+        }
+
+        #email-sug-wrapper li:hover {
+            background-color: #ffc4ce;
+            background-clip: border-box;
+        }
+
+        #email-input {
+            padding: 4px;
+            width: 200px;
+            box-sizing: border-box;
+            border: 1px solid #c2c2c2;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <input id="email-input" type="text" title="">
+    <ul id="email-sug-wrapper" class="email-sug"></ul>
+</div>
+</body>
+<script>
+    const postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    const emailInput = document.querySelector("input");
+    const sugUl = document.querySelector("ul");
+
+    emailInput.addEventListener("input", function (e) {
+        onInput();
+    });
+
+    sugUl.addEventListener("click",function (ev) {
+        emailInput.innerHTML = "213123";
+        console.log(ev.target);
+        console.log(ev.target.innerText);
+        emailInput.value = ev.target.innerText;
+        upDataListState(false);
+    });
+
+    function onInput() {
+        let input = trimStr(emailInput.value);
+        let suffix = "";
+        if (input.length > 0) {
+            let index = input.indexOf("@");
+            if (index !== -1) {
+                suffix = input.slice(index+1);
+                input = input.slice(0, index);
+                console.log(suffix+"  "+input);
+            }
+            let resultList = [];
+            let filterList = [];
+            for (let i = 0; i < postfixList.length; i++) {
+                if (postfixList[i].indexOf(suffix) === 0) {
+                    filterList.push(input + "@" + postfixList[i])
+                }
+                resultList[i] = input + "@" + postfixList[i];
+            }
+
+            if (filterList.length > 0) {
+                resultList = filterList;
+            }
+            upDateSugList(resultList)
+
+        } else {
+            upDataListState(false);
+        }
+    }
+
+    function upDateSugList(arr) {
+        upDataListState(true);
+        for (let i = 0; i < arr.length; i++) {
+            let li = document.createElement("li");
+            li.innerText = arr[i];
+            sugUl.appendChild(li);
+        }
+    }
+
+    function upDataListState(isVisible) {
+        if (isVisible) {
+            sugUl.style.display = "block";
+            sugUl.innerHTML = "";
+        } else {
+            sugUl.style.display = "none";
+        }
+    }
+
+    function trimStr(str) {
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+
+
+</script>
+</html>
