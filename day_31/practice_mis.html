@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<style>
+    table {
+        border: 1px solid black;
+    }
+
+    table td {
+        margin: 1px;
+        border: 1px solid black;
+        text-align: center;
+        padding: 8px;
+    }
+
+    #table-wrapper {
+        margin-top: 12px;
+    }
+</style>
+<body>
+
+<div id="region-check">
+    <input type="checkbox" name="region" title="" value="华北">华北
+    <input type="checkbox" name="region" title="" value="华南">华南
+    <input type="checkbox" name="region" title="" value="华东">华东
+    <input type="checkbox" name="" title="" value="0">全选
+</div>
+<div id="product-check">
+    <input type="checkbox" name="product" title="" value="手机">手机
+    <input type="checkbox" name="product" title="" value="笔记本">笔记本
+    <input type="checkbox" name="product" title="" value="智能音箱">智能音箱
+    <input type="checkbox" name="" title="" value="0">全选
+</div>
+<div id="table-wrapper"></div>
+</body>
+<script>
+    const tableWrapper = document.querySelector("#table-wrapper");
+    const checkProduct = document.querySelectorAll("#product-check input");
+    const checkRegion = document.querySelectorAll("#region-check input");
+    let productSelectIndex = 0;
+    let regionSelectIndex = 0;
+
+    initCheckBox(Array.from(checkProduct));
+    initCheckBox(Array.from(checkRegion));
+
+    function initCheckBox(boxItems) {
+        let allCheck = boxItems.pop();
+        allCheck.addEventListener("change", function (ev) {
+            for (let i = 0; i < boxItems.length; i++) {
+                boxItems[i].checked = ev.target.checked;
+            }
+            filterData();
+        });
+        for (let i = 0; i < boxItems.length; i++) {
+            boxItems[i].addEventListener("change", function () {
+                let result = true;
+                for (let j = 0; j < boxItems.length; j++) {
+                    result = boxItems[j].checked && result;
+                }
+                allCheck.checked = result;
+                filterData()
+            })
+        }
+    }
+
+    function filterData() {
+        let filterArr = [];
+        let productArr = [];
+        let regionArr = [];
+        let productEle = Array.from(checkProduct);
+        let regionEle = Array.from(checkRegion);
+        for (let m = 0; m < productEle.length; m++) {
+            if (productEle[m].checked) {
+                productArr.push(productEle[m].value)
+            }
+        }
+        for (let n = 0; n < regionEle.length; n++) {
+            if (regionEle[n].checked) {
+                regionArr.push(regionEle[n].value)
+            }
+        }
+        for (let i = 0; i < sourceData.length; i++) {
+            if ((productArr.indexOf(sourceData[i].product) !== -1) && (regionArr.indexOf(sourceData[i].region) !== -1)) {
+                filterArr.push(sourceData[i])
+            }
+        }
+        calSelectNum();
+        createTable(filterArr)
+    }
+
+    function calSelectNum() {
+        let productEle = Array.from(checkProduct);
+        let regionEle = Array.from(checkRegion);
+        productEle.pop();
+        regionEle.pop();
+        productSelectIndex = 0;
+        regionSelectIndex = 0;
+        for (let m = 0; m < productEle.length; m++) {
+            if (productEle[m].checked) {
+                productSelectIndex++;
+            }
+        }
+        for (let n = 0; n < regionEle.length; n++) {
+            if (regionEle[n].checked) {
+                regionSelectIndex++;
+            }
+        }
+    }
+
+    function createTable(data) {
+        //整理数据
+        if (productSelectIndex > regionSelectIndex) {
+            data.sort(function (a, b) {
+                return a.region.localeCompare(b.region)
+            });
+        }
+        //清空表格
+        tableWrapper.innerHTML = "";
+        if (data.length <= 0) {
+            return;
+        }
+        let table = document.createElement("table");
+        //创建表头
+        let tHead = createTr();
+        let itemTd = createTd();
+        itemTd.innerText = "商品";
+        let regionTd = createTd();
+        regionTd.innerText = "地区";
+        if (productSelectIndex > regionSelectIndex) {
+            tHead.appendChild(regionTd);
+            tHead.appendChild(itemTd);
+        } else {
+            tHead.appendChild(itemTd);
+            tHead.appendChild(regionTd);
+        }
+        for (let i = 1; i <= 12; i++) {
+            let tempTd = createTd();
+            tempTd.innerText = i.toString() + "月";
+            tHead.appendChild(tempTd);
+        }
+        table.appendChild(tHead);
+        //创建数据
+        let lastData = "";
+
+        for (let i = 0; i < data.length; i++) {
+            let rowData = data[i];
+            let tRow = createTr();
+
+            let productTd = createTd();
+            let regionTd = createTd();
+            productTd.innerText = rowData.product;
+            regionTd.innerText = rowData.region;
+
+            if (productSelectIndex > regionSelectIndex) {
+                regionTd.setAttribute("rowSpan", productSelectIndex);
+                if (lastData !== rowData.region) {
+                    lastData = rowData.region;
+                    tRow.appendChild(regionTd);
+                }
+                tRow.appendChild(productTd);
+            } else {
+                productTd.setAttribute("rowSpan", regionSelectIndex);
+                if (lastData !== rowData.product) {
+                    lastData = rowData.product;
+                    tRow.appendChild(productTd);
+                }
+                tRow.appendChild(regionTd);
+            }
+
+            for (let j = 0; j < data[i].sale.length; j++) {
+                let tempTd = createTd();
+                tempTd.innerText = data[i].sale[j];
+                tRow.appendChild(tempTd);
+            }
+
+            table.appendChild(tRow);
+        }
+        tableWrapper.appendChild(table);
+    }
+
+    function createTd() {
+        return document.createElement("td");
+    }
+
+    function createTh() {
+        return document.createElement("th");
+    }
+
+    function createTr() {
+        return document.createElement("tr");
+    }
+</script>
+</html>
