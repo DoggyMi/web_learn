@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    class Restaurant {
+        constructor(cash, seats, staff) {
+            this.cash = cash;
+            this.seats = seats;
+            this.staff = staff;
+        }
+
+        static getInstance(cash, seats, staff) {
+            if (!this.instance) {
+                this.instance = new Restaurant(cash, seats, staff);
+                console.log("饭店开张");
+            }
+            return this.instance;
+        }
+    }
+
+    class Staff {
+        constructor(id, name, salary) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+        }
+    }
+
+    class Waiter extends Staff {
+
+        constructor(id, name, salary) {
+            super(id, name, salary)
+        }
+
+        static getInstance(id, name, salary) {
+            if (!this.instance) {
+                this.instance = new Waiter(id, name, salary);
+                console.log(name + "出现了");
+            }
+            return this.instance;
+        }
+
+        getOrder(cus) {
+            this.nowCus = cus;
+            console.log("服务员" + this.name + "帮助" + cus.name + "点餐");
+            let dish = cus.order();
+            console.log("服务员" + this.name + "叫厨师做" + dish.name);
+            Cook.getInstance().cookDish(dish);
+        }
+
+        serving(dish) {
+            console.log("服务员" + this.name + "上菜：" + dish.name);
+            this.nowCus.eat(dish);
+        }
+    }
+
+    class Cook extends Staff {
+        constructor(id, name, salary) {
+            super(id, name, salary)
+        }
+
+        static getInstance(id, name, salary) {
+            if (!this.instance) {
+                this.instance = new Cook(id, name, salary);
+                console.log(name + "出现了");
+            }
+            return this.instance;
+        }
+
+        cookDish(dish) {
+            console.log("厨师" + this.name + "完成了" + dish.name);
+            console.log("厨师" + this.name + "呼叫服务员上菜");
+            Waiter.getInstance().serving(dish);
+        }
+    }
+
+    class Customer {
+        constructor(name, dish) {
+            this.name = name;
+            this.dish = dish;
+        }
+
+        order() {
+            console.log("顾客"+this.name+"点了"+this.dish.name);
+            return this.dish;
+        }
+
+        eat(dish) {
+            console.log("顾客"+this.name+"吃了"+dish.name);
+        }
+    }
+
+    class Dish {
+        constructor(name, cost, price) {
+            this.name = name;
+            this.cost = cost;
+            this.price = price;
+        }
+    }
+
+    //测试
+    let names = ["Agnes", "Alberta", "Ann", "Anna", "Atalanta", "Bella"];
+    let cusList = [];
+    let staffList = [];
+    for (let i = 0; i < names.length; i++) {
+        cusList.push(new Customer(names[i],new Dish("鱼香肉丝",10,20)));
+    }
+    staffList.push(Waiter.getInstance(1, "小王", 1000));
+    staffList.push(Cook.getInstance(2, "老王", 2000));
+    let restaurant = Restaurant.getInstance(10000, 1, staffList);
+    while (cusList.length !== 0) {
+        let cus = cusList.pop();
+        console.log("客人" + cus.name + "入座了");
+        Waiter.getInstance().getOrder(cus)
+    }
+
+
+</script>
+</body>
+</html>
