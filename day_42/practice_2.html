@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    let methodName = 'work';
+
+    class Restaurant {
+        constructor(cash, seats, staff) {
+            this.cash = cash;
+            this.seats = seats;
+            this.staff = staff;
+        }
+
+        invitedStaff(staff) {
+            this.staff.push(staff);
+        }
+
+        firedOfficial(staff) {
+            this.staff.remove(staff);
+        }
+    }
+
+    class Staff {
+        constructor(id, name, salary) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+        }
+
+        static [methodName]() {
+            console.log("进行工作");
+        }
+    }
+
+    class Waiter extends Staff {
+        constructor(id, name, salary) {
+            super(id, name, salary)
+        }
+
+        doWork(dish) {
+            if (dish instanceof Array) {
+                console.log("服务员" + this.id + "点餐：" + dish.toString());
+            } else {
+                console.log("服务员" + this.id + "上菜：" + dish.toString());
+            }
+        }
+    }
+
+    class Cook extends Staff {
+        constructor(id, name, salary) {
+            super(id, name, salary)
+        }
+
+        doWork(dish) {
+            console.log("厨师" + this.id + "炒了：" + dish.toString());
+        }
+    }
+
+    class Customer {
+        constructor(name) {
+            this.name = name;
+        }
+
+        order(dish) {
+            console.log("顾客点菜");
+        }
+
+        eat(dish) {
+            console.log("吃吃吃");
+        }
+    }
+
+    class Dish {
+        constructor(name, cost, price) {
+            this.name = name;
+            this.cost = cost;
+            this.price = price;
+        }
+    }
+
+    Array.prototype.indexOf = function (val) {
+        for (let i = 0; i < this.length; i++) {
+            if (this[i] === val) return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function (val) {
+        const index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+</script>
+</html>

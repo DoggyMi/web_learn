@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES5</title>
+</head>
+<body>
+
+</body>
+<script src="common.js"></script>
+<script>
+
+    //餐厅类
+    function Restaurant(cash, seats, staff) {
+        this.cash = cash;
+        this.seats = seats;
+        this.staff = staff;
+        this.invitedStaff = function (newStaff) {
+            this.staff.push(newStaff);
+        };
+        this.firedOfficial = function (oldStaff) {
+            this.staff.remove(oldStaff);
+        }
+    }
+
+    //员工类
+    function Staff(id, name, salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    Staff.prototype.work = function () {
+        console.log("员工进行工作(需覆盖work方法)");
+    };
+
+    //服务员继承员工
+    function Waiter(id, name, salary) {
+        Staff.call(this, id, name, salary);
+    }
+
+    Waiter.prototype = Object.create(Staff.prototype);
+    Waiter.prototype.constructor = Waiter;
+    Waiter.prototype.work = function (dishes) {
+        if (dishes instanceof Array) {
+            console.log("服务员" + this.name + "点餐：" + dishes.toString());
+        } else {
+            console.log("服务员" + this.name + "上菜：" + dishes.toString());
+        }
+    };
+
+    //厨师继承员工
+    function Cook(id, name, salary) {
+        Staff.call(this, id, name, salary);
+    }
+
+    Cook.prototype = Object.create(Staff.prototype);
+    Cook.prototype.constructor = Cook;
+    Cook.prototype.work = function (dishes) {
+        console.log("厨师" + this.name + "炒了：" + dishes.toString());
+    };
+
+    //顾客
+    function Customer() {
+
+    }
+
+    Customer.prototype.order = function () {
+        console.log("顾客点菜");
+    };
+    Customer.prototype.eat = function () {
+        console.log("吃吃吃");
+    };
+
+    //菜品
+    function Dish(name, cost, price) {
+        this.name = name;
+        this.cost = cost;
+        this.price = price;
+    }
+    //测试
+    var ifeRestaurant = new Restaurant(1000000, 20, []);
+
+    var newCook = new Cook(1, "Tony", 10000);
+    var newWaiter = new Waiter(2, "Marry", 600);
+    var newCustomer = new Customer();
+    newCook.work("鱼香肉丝");
+    newWaiter.work(["炒青菜", "水煮鱼"]);
+    newWaiter.work("米饭");
+    newCustomer.order();
+    newCustomer.eat();
+
+    ifeRestaurant.invitedStaff(newCook);
+    console.log(ifeRestaurant.staff[0]);
+    ifeRestaurant.firedOfficial(newCook);
+    console.log(ifeRestaurant.staff[0]);
+</script>
+</html>
