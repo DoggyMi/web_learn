@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开一家餐厅吧！！</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        li{
+            list-style: none;
+        }
+
+        .restaurant {
+            width: 80%;
+            height: 600px;
+            border: 1px black solid;
+            margin-top: 20px;
+            position: relative;
+            float: left;
+        }
+
+        .cus_list {
+            width: 20%;
+            float: right;
+        }
+
+        .chef {
+            width: 200px;
+        }
+
+        .chef_img {
+            margin: 0 auto;
+            height: 50px;
+            width: 50px;
+            background-color: #65a4fa;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .customer{
+            right: 0;
+            top: 0;
+            position: absolute;
+        }
+        .customer_img {
+            height: 50px;
+            width: 50px;
+            background-color: #fa7878;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .waiter_img {
+            height: 50px;
+            width: 50px;
+            background-color: #66bb33;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .chef_status {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+
+    </style>
+    <script src="js/common.js"></script>
+    <script src="js/Restaurant.js"></script>
+    <script src="js/Staff.js"></script>
+    <script src="js/Dish.js"></script>
+    <script src="js/Customer.js"></script>
+    <script src="js/Waiter.js"></script>
+    <script src="js/Chef.js"></script>
+</head>
+<body>
+
+
+<div class="restaurant">
+    金钱数量: <span id="money">0</span>
+    <div class="chef">
+        <div class="chef_img">厨师</div>
+        <p class="chef_status">空闲</p>
+        <div><span class="chef_dish"></span> <span class="last_time"></span></div>
+
+        <div class="chef_dish_list"></div>
+    </div>
+
+    <div class="waiter">
+        <div class="waiter_img">服务员</div>
+        <div class="waiter_status"></div>
+    </div>
+
+    <div class="customer">
+        <div class="customer_img">顾客</div>
+        <p class="customer_status"></p>
+        <div class="customer_dish_list"></div>
+    </div>
+</div>
+<div style="background-color:red" class="cus_list">
+
+</div>
+
+
+<script>
+    let $ = document.querySelectorAll.bind(document);
+    let money_ele = $('#money')[0];
+
+    let chef_ele = $('.chef')[0];
+    let chef_status_ele = chef_ele.querySelector(".chef_status");
+    let chef_dish_ele = chef_ele.querySelector(".chef_dish");
+    let chef_last_time_ele = chef_ele.querySelector(".last_time");
+    let chef_dish_list_ele = chef_ele.querySelector(".chef_dish_list");
+
+    let cus_list_ele = $(".cus_list")[0];
+    let cus = $(".customer_img")[0];
+
+    let cus_status = $(".customer_status")[0];
+    let cus_dish_list = $(".customer_dish_list")[0];
+
+    //单位时间
+    const time_unit = 1000;
+    //点菜时间
+    const order_time = 3 * time_unit;
+    //吃一道菜的时间
+    const eat_time = 3 * time_unit;
+    //创建饭店实例
+    let restaurant = Restaurant.getInstance({
+        cash: 1000,
+        seats: 1,
+        cash_watcher: (value) => {
+            money_ele.innerText = value;
+        },
+        cash_getter: () => {
+            return Number(money_ele.innerText);
+        },
+        customers_watcher: (cus_list) => {
+            cus_list_ele.innerHTML = "";
+            let ul = document.createElement("ul");
+            cus_list.forEach((item => {
+                let li = document.createElement("li");
+                li.innerText = item.name;
+                ul.appendChild(li);
+            }));
+            cus_list_ele.appendChild(ul);
+        }
+    });
+    //创建服务员
+    let waiter = new Waiter(1, "服务员", 100);
+    //创建厨师
+    let chef = new Chef({
+        id: 1,
+        name: "厨师老王",
+        salary: 1000,
+        time_watcher: (time) => {
+            chef_last_time_ele.innerText = `仍需${time}秒`
+        },
+        status_watcher: (status) => {
+            chef_status_ele.innerText = status ? "正在做饭" : "空闲";
+        },
+        dish_watcher: (dish) => {
+            if (dish) {
+                chef_dish_ele.innerText = `正在做${dish.name}`;
+            } else {
+                chef_dish_ele.innerText = "";
+                chef_last_time_ele.innerText = "";
+            }
+        },
+        dish_list_watcher: (dishes) => {
+            chef_dish_list_ele.innerHTML = "";
+            let ul = document.createElement("ul");
+            dishes.forEach((item => {
+                let li = document.createElement("li");
+                li.innerText = item.name;
+                ul.appendChild(li);
+            }));
+            chef_dish_list_ele.appendChild(ul);
+        }
+    });
+
+    // 来客人了
+    let i = 0;
+    setInterval(() => {
+        i++;
+        log(`来了一位客人 小${i}`);
+        let customer = new Customer({
+            name: `小${i}`,
+            status_watcher: (status) => {
+                cus_status.innerText = status;
+            },
+            dishes_watcher:(dishes)=>{
+                cus_dish_list.innerHTML = "";
+                let ul = document.createElement("ul");
+                dishes.forEach((item => {
+                    let li = document.createElement("li");
+                    li.innerText = `${item.name}  ${item.status}  ${item.last_time}`;
+                    ul.appendChild(li);
+                }));
+                cus_dish_list.appendChild(ul);
+            }
+        });
+        restaurant.queueCustomer(customer);
+        restaurant.serviceCustomer();
+    }, random(2 * time_unit, 2 * time_unit));
+
+
+</script>
+</body>
+</html>
